@@ -1,5 +1,5 @@
 <?php
-define('_INDEX_', true);
+if (!defined('_INDEX_')) define('_INDEX_', true);
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if (G5_IS_MOBILE) {
@@ -7,62 +7,75 @@ if (G5_IS_MOBILE) {
     return;
 }
 
+if(G5_COMMUNITY_USE === false) {
+    include_once(G5_THEME_SHOP_PATH.'/index.php');
+    return;
+}
+
 include_once(G5_THEME_PATH.'/head.php');
 ?>
 
-<h2 class="sound_only">최신글</h2>
+<section class="main_sec">
+    <article class="main_banner">
 
-<div class="latest_top_wr">
-    <?php
-    // 이 함수가 바로 최신글을 추출하는 역할을 합니다.
-    // 사용방법 : latest(스킨, 게시판아이디, 출력라인, 글자수);
-    // 테마의 스킨을 사용하려면 theme/basic 과 같이 지정
-    echo latest('theme/pic_list', 'free', 4, 23);		// 최소설치시 자동생성되는 자유게시판
-	echo latest('theme/pic_list', 'qa', 4, 23);			// 최소설치시 자동생성되는 질문답변게시판
-	echo latest('theme/pic_list', 'notice', 4, 23);		// 최소설치시 자동생성되는 공지사항게시판
-    ?>
-</div>
-<div class="latest_wr">
-    <!-- 사진 최신글2 { -->
-    <?php
-    // 이 함수가 바로 최신글을 추출하는 역할을 합니다.
-    // 사용방법 : latest(스킨, 게시판아이디, 출력라인, 글자수);
-    // 테마의 스킨을 사용하려면 theme/basic 과 같이 지정
-    echo latest('theme/pic_block', 'gallery', 4, 23);		// 최소설치시 자동생성되는 갤러리게시판
-    ?>
-    <!-- } 사진 최신글2 끝 -->
-</div>
+        <div class="bg_wrap">
+            <div class="bg"></div>
+        </div>
 
-<div class="latest_wr">
-<!-- 최신글 시작 { -->
-    <?php
-    //  최신글
-    $sql = " select bo_table
-                from `{$g5['board_table']}` a left join `{$g5['group_table']}` b on (a.gr_id=b.gr_id)
-                where a.bo_device <> 'mobile' ";
-    if(!$is_admin)
-	$sql .= " and a.bo_use_cert = '' ";
-    $sql .= " and a.bo_table not in ('notice', 'gallery') ";     //공지사항과 갤러리 게시판은 제외
-    $sql .= " order by b.gr_order, a.bo_order ";
-    $result = sql_query($sql);
-    for ($i=0; $row=sql_fetch_array($result); $i++) {
-		$lt_style = '';
-    	if ($i%3 !== 0 ) $lt_style = "margin-left:2%";
-    ?>
-    <div style="float:left;<?php echo $lt_style ?>" class="lt_wr">
-        <?php
-        // 이 함수가 바로 최신글을 추출하는 역할을 합니다.
-        // 사용방법 : latest(스킨, 게시판아이디, 출력라인, 글자수);
-        // 테마의 스킨을 사용하려면 theme/basic 과 같이 지정
-        echo latest('theme/basic', $row['bo_table'], 6, 24);
-        ?>
-    </div>
-    <?php
-    }
-    ?>
-    <!-- } 최신글 끝 -->
-</div>
+        <div class="left_squre"></div>
+        <div class="inner">
+            <div class="content_wrap">
+                <p class="t1">
+                    “ Healthy People makes a healthy<br/>
+                    organization, that is a healthy strategy ”
+                </p>
+                <p class="c1">
+                    Companies are constantly making effort to respond to rapidly changing <br/>
+                    environment around the world through new strategies, striving to create sustainable <br/>
+                    competitive advantages. <br/>
+                    And the core resource to create such competitive <br/>
+                    advantages is the very ‘People’. 
+                </p>
+                <a href="<?=G5_BBS_URL;?>/board.php?bo_table=about_us" class="about_btn">About Us ></a>
+            </div>
+        </div>
+    </article><!--main_banner end-->
 
-<?php
-include_once(G5_THEME_PATH.'/tail.php');
-?>
+
+
+    <article class="main_banner right">
+
+        <div class="bg_wrap">
+            <div class="bg"></div>
+        </div>
+
+        <div class="left_squre"></div>
+        <div class="inner">
+            <div class="content_wrap">
+                <p class="t1">
+                    There is always a large invisible GAP in<br/>
+                    personnel organization theory and<br/>
+                    the organization's workplace. 
+                </p>
+                <p class="c1">
+                    Solvist provides hands-on consulting that allows <br/>
+                    practitioners to provide and apply hands-on tools that can be used directly in practice <br/>
+                    so that this Gap can be applied in the field.<br/>
+                    We are confident that performance-driven coaching, which can be applied <br/>
+                    immediately to companies that have strategies in place but are not implementing them, <br/>
+                    will help you strengthen your competitiveness.<br/>
+                    Solvist will be your best HR partner, designing an organization that achieves results <br/>
+                    through actual necessary coaching and consulting without bubbles. 
+                </p>
+                <a href="<?=G5_BBS_URL;?>/write.php?bo_table=contact_us" class="about_btn">Contact us ></a>
+            </div>
+        </div>
+    </article><!--main_banner end-->
+
+    
+
+
+</section>
+
+
+<?php include_once(G5_THEME_PATH.'/tail.php'); ?>

@@ -4,16 +4,13 @@
     상수 선언
 ********************/
 
-define('G5_VERSION', '그누보드5');
-define('G5_GNUBOARD_VER', '5.4.2.2');
-
 // 이 상수가 정의되지 않으면 각각의 개별 페이지는 별도로 실행될 수 없음
 define('_GNUBOARD_', true);
 
-if (PHP_VERSION >= '5.1.0') {
-    //if (function_exists("date_default_timezone_set")) date_default_timezone_set("Asia/Seoul");
-    date_default_timezone_set("Asia/Seoul");
-}
+include_once($g5_path['path'].'/version.php');   // 설정 파일
+
+// 기본 시간대 설정
+date_default_timezone_set("Asia/Seoul");
 
 /********************
     경로 상수
@@ -29,7 +26,7 @@ if (PHP_VERSION >= '5.1.0') {
 define('G5_DOMAIN', '');
 define('G5_HTTPS_DOMAIN', '');
 
-// 디버깅 상수, 실제 서버운영시 false 로 설정해 주제요.
+// 디버깅 상수, 실제 서버운영시 false 로 설정해 주세요.
 define('G5_DEBUG', false);
 
 // Set Databse table default engine is Databse default_storage_engine, If you want to use MyISAM or InnoDB, change to MyISAM or InnoDB.
@@ -135,7 +132,7 @@ define('G5_PHPMAILER_PATH', G5_PLUGIN_PATH.'/'.G5_PHPMAILER_DIR);
 //------------------------------------------------------------------------------
 define('G5_SET_DEVICE', 'both');
 
-define('G5_USE_MOBILE', true); // 모바일 홈페이지를 사용하지 않을 경우 false 로 설정
+define('G5_USE_MOBILE', false); // 모바일 홈페이지를 사용하지 않을 경우 false 로 설정
 define('G5_USE_CACHE',  true); // 최신글등에 cache 기능 사용 여부
 
 
@@ -161,7 +158,7 @@ define('G5_SPACE',          32); // 공백
 define('G5_SPECIAL',        64); // 특수문자
 
 // SEO TITLE 문단 길이
-define('G5_SEO_TITEL_WORD_CUT', 8);        // SEO TITLE 문단 길이
+define('G5_SEO_TITLE_WORD_CUT', 8);        // SEO TITLE 문단 길이
 
 // 퍼미션
 define('G5_DIR_PERMISSION',  0755); // 디렉토리 생성시 퍼미션
@@ -234,4 +231,3 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') {   //https 통신일때
 } else {  //http 통신일때 daum 주소 js
     define('G5_POSTCODE_JS', '<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>');
 }
-?>

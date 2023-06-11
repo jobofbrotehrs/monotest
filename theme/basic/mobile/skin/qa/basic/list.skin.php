@@ -5,6 +5,12 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.$qa_skin_url.'/style.css">', 0);
 ?>
 
+<form name="fqalist" id="fqalist" action="./qadelete.php" onsubmit="return fqalist_submit(this);" method="post">
+<input type="hidden" name="stx" value="<?php echo $stx; ?>">
+<input type="hidden" name="sca" value="<?php echo $sca; ?>">
+<input type="hidden" name="page" value="<?php echo $page; ?>">
+<input type="hidden" name="token" value="<?php echo get_text($token); ?>">
+
 <?php if ($admin_href || $write_href) { ?>
 <ul class="btn_top top btn_bo_user">
     <?php if ($admin_href) { ?><li><a href="<?php echo $admin_href ?>" class="btn_admin btn"><i class="fa fa-cog fa-spin fa-fw"></i><span class="sound_only">관리자</span></a></li><?php } ?>
@@ -40,11 +46,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$qa_skin_url.'/style.css">', 0);
     </nav>
     <!-- } 카테고리 끝 -->
     <?php } ?>
-
-    <form name="fqalist" id="fqalist" action="./qadelete.php" onsubmit="return fqalist_submit(this);" method="post">
-    <input type="hidden" name="stx" value="<?php echo $stx; ?>">
-    <input type="hidden" name="sca" value="<?php echo $sca; ?>">
-    <input type="hidden" name="page" value="<?php echo $page; ?>">
 
     <?php if ($is_checkbox) { ?>
     <div class="all_chk chk_box">
@@ -92,8 +93,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$qa_skin_url.'/style.css">', 0);
             <?php if ($i == 0) { echo '<li class="empty_list">게시물이 없습니다.</li>'; } ?>
         </ul>
     </div>
-    </form>
 </div>
+</form>
 
 <?php if($is_checkbox) { ?>
 <noscript>
@@ -114,6 +115,11 @@ add_stylesheet('<link rel="stylesheet" href="'.$qa_skin_url.'/style.css">', 0);
     <legend>게시물 검색</legend>
     <form name="fsearch" method="get">
     <input type="hidden" name="sca" value="<?php echo $sca ?>">
+    <input type="hidden" name="sop" value="and">
+    <label for="sfl" class="sound_only">검색대상</label>
+    <select name="sfl" id="sfl">
+        <?php echo get_qa_sfl_select_options($sfl); ?>
+    </select>
     <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
     <input type="text" name="stx" value="<?php echo stripslashes($stx) ?>" required placeholder="검색어를 입력하세요" id="stx" class="sch_input" size="15" maxlength="15">
     <button type="submit" value="검색" class="sch_btn"><i class="fa fa-search" aria-hidden="true"></i> <span class="sound_only">검색</span></button>

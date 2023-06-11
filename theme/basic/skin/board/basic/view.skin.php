@@ -93,8 +93,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         if($v_img_count) {
             echo "<div id=\"bo_v_img\">\n";
 
-            for ($i=0; $i<=count($view['file']); $i++) {
-                echo get_file_thumbnail($view['file'][$i]);
+            foreach($view['file'] as $view_file) {
+                echo get_file_thumbnail($view_file);
             }
 
             echo "</div>\n";
@@ -176,7 +176,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
     <!-- } 첨부파일 끝 -->
     <?php } ?>
 
-    <?php if(isset($view['link'][1]) && $view['link'][1]) { ?>
+    <?php if(isset($view['link']) && array_filter($view['link'])) { ?>
     <!-- 관련링크 시작 { -->
     <section id="bo_v_link">
         <h2>관련링크</h2>
